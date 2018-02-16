@@ -1,0 +1,109 @@
+<html>
+  <head>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='https://unpkg.com/formiojs@latest/dist/formio.full.min.css'>
+    <script src='https://unpkg.com/formiojs@latest/dist/formio.full.min.js'></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type='text/javascript'>
+    
+    var taskInstanceId = '';
+    
+     function makeDecision(decision, comment) {
+      	datamodel = {
+        	approverComment:comment,
+          approved:decision
+        };
+        var data = {
+                      'data': {
+                          'type':'task_instance',
+                          'attributes': {
+                              'status':'COMPLETE',
+                              'content':datamodel
+                          }
+                      }
+                  };
+        
+        client.patch('task_instances/'+taskInstanceId+'?include=data_model', data
+        ).then(function(response){
+        	$('#formio').html('<h3>You\'ve made decision. To approve another request, please refresh this page.</h3>');
+        })
+      }
+      
+    function loadForm(data={}) {
+     Formio.createForm(document.getElementById('formio'), 'https://aqeylmxqmkjkyqi.form.io/purchaseapprovalform').then(function(form) {
+      document.querySelector('button.btn-success').onclick = function(event){
+      			makeDecision('yes', document.querySelector('.approverComment textarea').value);
+     	}
+      document.querySelector('button.btn-danger').onclick = function(event){
+      			makeDecision('no', document.querySelector('.approverComment textarea').value);
+     	}
+     form.submission = {
+    		data: data
+  		};
+      
+});
+      };
+      // use only subdomain of environment
+    	var apiEndpoint = 'onkranxx';
+      //Access token
+      var bearer = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImE5MDg3ZDY2YzU2NDk4ZWMxZWU4YzQyNTNlNjAyOGJkZTY4ZjE5ZmE3NjNmYTVhODljOWVmNDcwOWM2MjczMTliMTcwM2NkY2QzNDA5NWI1In0.eyJhdWQiOiI3MDk4NTE0NCIsImp0aSI6ImE5MDg3ZDY2YzU2NDk4ZWMxZWU4YzQyNTNlNjAyOGJkZTY4ZjE5ZmE3NjNmYTVhODljOWVmNDcwOWM2MjczMTliMTcwM2NkY2QzNDA5NWI1IiwiaWF0IjoxNTE4NzczNjM2LCJuYmYiOjE1MTg3NzM2MzYsImV4cCI6MTU1MDMwOTYzNiwic3ViIjoiMSIsInNjb3BlcyI6W119.sB_VWFeviXS4zEviAWUQy4KNL6jaSPlq1uxtRi6AiWb_Oo1L6X6AOzOdMCDiCnX7bsxJ2nbKcjwnewyiovprfdbpim5ed2PjaDGee-SrPr2jAyY8z3iInKw23J0bQ5iUA3WN7p02onouJCwQMWfgZ_dOh5xNzwKpTSt83eKd51KhEogv1IOL_ejVJFBsWw_LCEtN_DHUwFEzHmdfgjIaOjg_3pAuqF9pIsPLa5JewGFCvQBDzG0DXy8VWQLlXTnur_bkPQpuLi-bMF5GusJA1CVZY53qeWQAosklyDzgt9ASLz2MZBXK0TsHLzVbtBwNXRFSZ4HRTSLl95Q0wm_OMSuDa0qUhkdyqCMzrl6jPBfZhf-q-OdjKEdCYOg52eTnfJPPWbtmE7Wksc89OouQGdi6zNFU_51eUn_RXVoLUOerayGow8m84FgOvoKMRWbe6p6jOTw_wy9rA3rQdeA1W-cSMMMbKKx8X1VAneRkqO4WnvA0YmSrH7IwbvnRNFtlhYOHhz70pYCOxJoamBauoDbztPTaKCYxmS8jyTdWe-AXcUbjKaHGdBRuDk52Zo8uppKBqYEPrOuULvuXFvw9kOQqZ7YKVsHJbvSSVSR7pEqXyx53_4BbrIEyTGuzy-_44B9c3vhnIMMadKAJPKzIGOuv2Wntc99iRo0rO_XpMQ8';
+    	var client = new axios.create({
+      	baseURL: 'https://'+apiEndpoint+'.api.processmaker.io/api/v1',
+                        headers: {
+                            "content-type": "application/json",
+                            "Accept": "application/json",
+                            'Authorization': 'Bearer ' + bearer
+                        }
+      });
+      client.get('task_instances/delegated', { params: {
+      		per_page:1,
+          include:'data_model'
+      	}
+      }).then(function(response){
+      	if (response.data.meta.pagination.count >= 1)
+        //Get prefilled data and set to form io and get task instace id
+        {
+        $('#formio').html('');
+        	taskInstanceId = response.data.data[0].id;
+        	var prefilledData = response.data.included[0].attributes.dataModel.request.data;
+          loadForm(prefilledData);
+        } else 
+        	$('#formio').html('<center><div class="col-xs-8 col-xs-offset-2"><h3>No any requests found.</h3></div><center>');
+      });
+    </script>
+  </head>
+  <body>
+  <div class="col-xs-10 col-xs-offset-1">
+  <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Purchase request demo</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="https://jsfiddle.net/egerb/x69z0kup/2/">Request form<span class="sr-only">(current)</span></a></li>
+        <li class="active"><a target="_blank" href="">Approve form</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <div id='formio'>
+      <center>
+      <h3>
+      Checking requests...
+      </h3>
+      </center>
+    </div>
+    </div>
+  </body>
+</html>
