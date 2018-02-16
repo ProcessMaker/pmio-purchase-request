@@ -1,14 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Purchase request</title>
-</head>
-<body>
+<html>
+  <head>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='https://unpkg.com/formiojs@latest/dist/formio.full.min.css'>
+    <script src='https://unpkg.com/formiojs@latest/dist/formio.full.min.js'></script>
+    <script type='text/javascript'>
+    	window.onload = function() {
+        Formio.createForm(document.getElementById('formio'), 'https://aqeylmxqmkjkyqi.form.io/purchaseorderform').then(function(form) {
+  form.submission = {
+    //Prefilled data, uncomment if need
+    data: {
+    	//requesterName:'Ihor',
+      //requesterEmail:'egor@processmaker.com',
+      //orderNumber: 12,
+      orderDate:Date(),
+      //itemName:'My item',
+      //itemCost:100000,
+      //itemQty:2,
+      //purchaseSum:200000,
+      //purchaseGoal:'I wanna bike and infinity fuel!'
+    }
+  };
+});
+      };
+    </script>
+  </head>
+  <body>
+    <div class="col-xs-10 col-xs-offset-1">
+    <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Purchase request demo</a>
+    </div>
 
-<script>
-    alert('its working!');
-</script>
-
-</body>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="">Request form<span class="sr-only">(current)</span></a></li>
+        <li><a target="_blank" href="https://jsfiddle.net/egerb/Lws5q4q6/6/">Approve form</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <div id='formio'></div>
+    </div>
+  </body>
 </html>
