@@ -7,9 +7,8 @@
     <script type='text/javascript'>
     	window.onload = function() {
         Formio.createForm(document.getElementById('formio'), 'https://aqeylmxqmkjkyqi.form.io/purchaseorderform').then(function(form) {
-  form.submission = {
-    //Making calculations 
-    $('div.item-qty input').keyup(function(){
+      //Making calculations 
+        $('div.item-qty input').keyup(function(){
         var qty = $(this).val();
         var cost = $('div.item-cost input').val();
         if (qty.length > 0 && cost.length > 0) {
@@ -26,6 +25,8 @@
         }
         	
         });
+          form.submission = {
+    
     //Prefilled data, uncomment if need
     data: {
     	//requesterName:'Ihor',
