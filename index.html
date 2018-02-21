@@ -2,11 +2,30 @@
   <head>
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
     <link rel='stylesheet' href='https://unpkg.com/formiojs@latest/dist/formio.full.min.css'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src='https://unpkg.com/formiojs@latest/dist/formio.full.min.js'></script>
     <script type='text/javascript'>
     	window.onload = function() {
         Formio.createForm(document.getElementById('formio'), 'https://aqeylmxqmkjkyqi.form.io/purchaseorderform').then(function(form) {
   form.submission = {
+    //Making calculations 
+    $('div.item-qty input').keyup(function(){
+        var qty = $(this).val();
+        var cost = $('div.item-cost input').val();
+        if (qty.length > 0 && cost.length > 0) {
+        $('div.purchase-sum input').val(qty*cost);
+        }
+        	
+        });
+        
+        $('div.item-cost input').keyup(function(){
+        var cost = $(this).val();
+        var qty = $('div.item-qty input').val();
+        if (qty.length > 0 && cost.length > 0) {
+        $('div.purchase-sum input').val(qty*cost);
+        }
+        	
+        });
     //Prefilled data, uncomment if need
     data: {
     	//requesterName:'Ihor',
