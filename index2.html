@@ -6,6 +6,12 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type='text/javascript'>
+
+      //Change this demo data for your own credentials if needed
+      var formUrl = 'https://aqeylmxqmkjkyqi.form.io/purchaseapprovalform';
+      var envUrl = 'https://onkranxx.api.processmaker.io/api/v1';
+      var accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImE5MDg3ZDY2YzU2NDk4ZWMxZWU4YzQyNTNlNjAyOGJkZTY4ZjE5ZmE3NjNmYTVhODljOWVmNDcwOWM2MjczMTliMTcwM2NkY2QzNDA5NWI1In0.eyJhdWQiOiI3MDk4NTE0NCIsImp0aSI6ImE5MDg3ZDY2YzU2NDk4ZWMxZWU4YzQyNTNlNjAyOGJkZTY4ZjE5ZmE3NjNmYTVhODljOWVmNDcwOWM2MjczMTliMTcwM2NkY2QzNDA5NWI1IiwiaWF0IjoxNTE4NzczNjM2LCJuYmYiOjE1MTg3NzM2MzYsImV4cCI6MTU1MDMwOTYzNiwic3ViIjoiMSIsInNjb3BlcyI6W119.sB_VWFeviXS4zEviAWUQy4KNL6jaSPlq1uxtRi6AiWb_Oo1L6X6AOzOdMCDiCnX7bsxJ2nbKcjwnewyiovprfdbpim5ed2PjaDGee-SrPr2jAyY8z3iInKw23J0bQ5iUA3WN7p02onouJCwQMWfgZ_dOh5xNzwKpTSt83eKd51KhEogv1IOL_ejVJFBsWw_LCEtN_DHUwFEzHmdfgjIaOjg_3pAuqF9pIsPLa5JewGFCvQBDzG0DXy8VWQLlXTnur_bkPQpuLi-bMF5GusJA1CVZY53qeWQAosklyDzgt9ASLz2MZBXK0TsHLzVbtBwNXRFSZ4HRTSLl95Q0wm_OMSuDa0qUhkdyqCMzrl6jPBfZhf-q-OdjKEdCYOg52eTnfJPPWbtmE7Wksc89OouQGdi6zNFU_51eUn_RXVoLUOerayGow8m84FgOvoKMRWbe6p6jOTw_wy9rA3rQdeA1W-cSMMMbKKx8X1VAneRkqO4WnvA0YmSrH7IwbvnRNFtlhYOHhz70pYCOxJoamBauoDbztPTaKCYxmS8jyTdWe-AXcUbjKaHGdBRuDk52Zo8uppKBqYEPrOuULvuXFvw9kOQqZ7YKVsHJbvSSVSR7pEqXyx53_4BbrIEyTGuzy-_44B9c3vhnIMMadKAJPKzIGOuv2Wntc99iRo0rO_XpMQ8';
+      //Change this demo data for your own credentials if needed
     
     var taskInstanceId = '';
     
@@ -31,7 +37,8 @@
       }
       
     function loadForm(data={}) {
-     Formio.createForm(document.getElementById('formio'), 'https://aqeylmxqmkjkyqi.form.io/purchaseapprovalform').then(function(form) {
+     Formio.createForm(document.getElementById('formio'), formUrl).then(function(form) {
+      console.log(form);
       document.querySelector('button.btn-success').onclick = function(event){
       			makeDecision('yes', document.querySelector('.approverComment textarea').value);
      	}
@@ -44,16 +51,13 @@
       
 });
       };
-      // use only subdomain of environment
-    	var apiEndpoint = 'onkranxx';
-      //Access token
-      var bearer = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImE5MDg3ZDY2YzU2NDk4ZWMxZWU4YzQyNTNlNjAyOGJkZTY4ZjE5ZmE3NjNmYTVhODljOWVmNDcwOWM2MjczMTliMTcwM2NkY2QzNDA5NWI1In0.eyJhdWQiOiI3MDk4NTE0NCIsImp0aSI6ImE5MDg3ZDY2YzU2NDk4ZWMxZWU4YzQyNTNlNjAyOGJkZTY4ZjE5ZmE3NjNmYTVhODljOWVmNDcwOWM2MjczMTliMTcwM2NkY2QzNDA5NWI1IiwiaWF0IjoxNTE4NzczNjM2LCJuYmYiOjE1MTg3NzM2MzYsImV4cCI6MTU1MDMwOTYzNiwic3ViIjoiMSIsInNjb3BlcyI6W119.sB_VWFeviXS4zEviAWUQy4KNL6jaSPlq1uxtRi6AiWb_Oo1L6X6AOzOdMCDiCnX7bsxJ2nbKcjwnewyiovprfdbpim5ed2PjaDGee-SrPr2jAyY8z3iInKw23J0bQ5iUA3WN7p02onouJCwQMWfgZ_dOh5xNzwKpTSt83eKd51KhEogv1IOL_ejVJFBsWw_LCEtN_DHUwFEzHmdfgjIaOjg_3pAuqF9pIsPLa5JewGFCvQBDzG0DXy8VWQLlXTnur_bkPQpuLi-bMF5GusJA1CVZY53qeWQAosklyDzgt9ASLz2MZBXK0TsHLzVbtBwNXRFSZ4HRTSLl95Q0wm_OMSuDa0qUhkdyqCMzrl6jPBfZhf-q-OdjKEdCYOg52eTnfJPPWbtmE7Wksc89OouQGdi6zNFU_51eUn_RXVoLUOerayGow8m84FgOvoKMRWbe6p6jOTw_wy9rA3rQdeA1W-cSMMMbKKx8X1VAneRkqO4WnvA0YmSrH7IwbvnRNFtlhYOHhz70pYCOxJoamBauoDbztPTaKCYxmS8jyTdWe-AXcUbjKaHGdBRuDk52Zo8uppKBqYEPrOuULvuXFvw9kOQqZ7YKVsHJbvSSVSR7pEqXyx53_4BbrIEyTGuzy-_44B9c3vhnIMMadKAJPKzIGOuv2Wntc99iRo0rO_XpMQ8';
-    	var client = new axios.create({
-      	baseURL: 'https://'+apiEndpoint+'.api.processmaker.io/api/v1',
+      
+      var client = new axios.create({
+      	baseURL: envUrl,
                         headers: {
                             "content-type": "application/json",
                             "Accept": "application/json",
-                            'Authorization': 'Bearer ' + bearer
+                            'Authorization': 'Bearer ' + accessToken
                         }
       });
       client.get('task_instances/delegated', { params: {
