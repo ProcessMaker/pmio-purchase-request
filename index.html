@@ -2,11 +2,19 @@
   <head>
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
     <link rel='stylesheet' href='https://unpkg.com/formiojs@latest/dist/formio.full.min.css'>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src='https://unpkg.com/formiojs@latest/dist/formio.full.min.js'></script>
     <script type='text/javascript'>
-    	window.onload = function() {
-        Formio.createForm(document.getElementById('formio'), 'https://aqeylmxqmkjkyqi.form.io/purchaseorderform').then(function(form) {
+      //Credentails
+      //Change this demo data for your own credentials if needed
+      var formUrl = 'https://aqeylmxqmkjkyqi.form.io/purchaseorderform';
+      var webhookUrl = 'https://onkranxx.api.processmaker.io/api/v1/processes/Purchase/events/StartEvent/webhook';
+    	//Change this demo data for your own credentials if needed
+
+
+      window.onload = function() {
+        Formio.createForm(document.getElementById('formio'), formUrl).then(function(form) {
       //Making calculations 
         $('div.item-qty input').keyup(function(){
         var qty = $(this).val();
@@ -40,7 +48,22 @@
       //purchaseGoal:'I wanna bike and infinity fuel!'
     }
   };
-});
+  //Sending data to environment
+  form.on('submit', function(submission) {
+          var data = {
+            request : submission
+          }
+              axios.post(webhookUrl, data)
+            .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+
+            });
+
+        });
       };
     </script>
   </head>
