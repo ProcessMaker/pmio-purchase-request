@@ -53,7 +53,7 @@
       };
       
       var client = new axios.create({
-      	baseURL: envUrl,
+      	                baseURL: envUrl,
                         headers: {
                             "content-type": "application/json",
                             "Accept": "application/json",
@@ -65,12 +65,19 @@
           include:'data_model'
       	}
       }).then(function(response){
+
       	if (response.data.meta.pagination.count >= 1)
         //Get prefilled data and set to form io and get task instace id
         {
         $('#formio').html('');
         	taskInstanceId = response.data.data[0].id;
-        	var prefilledData = response.data.included[0].attributes.dataModel.request.data;
+        	//Empty structure for fields id no data in datamodel
+          var prefilledData = {};
+          //Check data in datamodel
+          if (response.data.included[0].attributes.dataModel.request) {
+            prefilledData = response.data.included[0].attributes.dataModel.request.data;
+          } 
+          
           loadForm(prefilledData);
         } else 
         	$('#formio').html('<center><div class="col-xs-8 col-xs-offset-2"><h3>No any requests found.</h3></div><center>');
