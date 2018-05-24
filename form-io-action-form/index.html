@@ -54,7 +54,7 @@ $.urlParam = function(name){
                         .post(webhookUrl, data)
                         .then(function (response) {
 			    alert("Submitted successfully");
-			    window.location.replace('https://processmaker.github.io/pmio-purchase-request/form-io-action-form/index.html')
+			    window.location.reload(true);
                             })
                         .catch(function (error) {
                             console.log(error);
