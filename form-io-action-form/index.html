@@ -53,8 +53,9 @@ $.urlParam = function(name){
                     axios
                         .post(webhookUrl, data)
                         .then(function (response) {
-                            console.log(response);
-                        })
+			    alert("Submitted successfully");
+			    window.location.replace('https://processmaker.github.io/pmio-purchase-request/form-io-action-form/index.html')
+                            })
                         .catch(function (error) {
                             console.log(error);
                         });
