@@ -54,7 +54,7 @@ $.urlParam = function(name){
                         .post(webhookUrl, data)
                         .then(function (response) {
 			    alert("Submitted successfully");
-			    window.location.reload(true);
+			    window.location.reload();
                             })
                         .catch(function (error) {
                             console.log(error);
