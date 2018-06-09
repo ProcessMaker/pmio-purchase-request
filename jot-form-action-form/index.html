@@ -487,12 +487,10 @@ JotForm.paymentExtrasOnTheFly([null,{"name":"clickTo","qid":"1","text":"Request 
       fields[item.name] = item.value;
    });
 
-      var data = {
-          jotform_data:fields
-      }
+      
       console.log(data);
       axios
-          .post(webhookUrl, data)
+          .post(webhookUrl, fields)
           .then(function (response) {
               alert("Submitted successfully");
               window.location.reload();
