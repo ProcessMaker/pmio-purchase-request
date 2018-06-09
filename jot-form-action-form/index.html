@@ -493,11 +493,11 @@ JotForm.paymentExtrasOnTheFly([null,{"name":"clickTo","qid":"1","text":"Request 
    var fields = $( this ).serializeObject();
       console.log(fields);
 	  var data = {
-		  rawRequest:fields
+		  rawRequest:JSON.stringify(fields)
 	  }
 	  
       axios
-          .post(webhookUrl, JSON.stringify(fields))
+          .post(webhookUrl, data)
           .then(function (response) {
               alert("Submitted successfully");
               window.location.reload();
