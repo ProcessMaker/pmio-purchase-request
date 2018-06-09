@@ -470,6 +470,7 @@ JotForm.paymentExtrasOnTheFly([null,{"name":"clickTo","qid":"1","text":"Request 
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-serialize-object/2.5.0/jquery.serialize-object.min.js"></script>
 <script >
    $.noConflict();
 	jQuery(function ($) {
@@ -492,7 +493,7 @@ JotForm.paymentExtrasOnTheFly([null,{"name":"clickTo","qid":"1","text":"Request 
 
 
 
-   console.log( $( this ).serialize());
+   console.log( $( this ).serializeObject());
    var allfields = $( this ).serializeArray();
    var fields = {};
 //    allfields.forEach(function(item){
