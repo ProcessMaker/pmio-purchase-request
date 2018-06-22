@@ -190,8 +190,8 @@
         <div class="form-group approved">
           <p class="help">Add additional comments to your response:</p>
           <textarea class="form-control" rows="4" placeholder="Comments..." name="comment"></textarea>
-          <input type="text" name="status" />
-          <input type="text" name="pmio_instance_id" />
+          <input type="text" name="status" id="status"/>
+          <input type="text" name="pmio_instance_id" id="pmio_instance_id"/>
           <button type="submit" class="btn btn-primary"> Send </button>
           <br>
           <br>
@@ -202,6 +202,8 @@
     <script type='text/javascript'>
         $("#message").text(message);
         $("#details").text(details);
+        $("#status").text(status);
+        $("#pmio_instance_id").text(pmio_instance_id);
         $("#form").attr("action", webhookUrl);
     </script>
 
