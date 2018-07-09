@@ -12,7 +12,7 @@
                 return null;
             }
             else {
-                return decodeURI(results[1]) || '';
+                return decodeURI(results[1].replace(/\+/g, ' ')) || '';
             }
         }
 
