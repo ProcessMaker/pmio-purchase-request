@@ -38,6 +38,7 @@
         if (status === null) {
             alert("status GET parameter expected!");
         }
+        var comments = $.urlParam('comments');
 
 
     </script>
@@ -213,7 +214,7 @@
     <form id="form" action="" method="GET">
         <div class="form-group approved">
             <p class="help">Add additional comments to your response:</p>
-            <textarea class="form-control" rows="4" placeholder="Comments..." name="comments"></textarea>
+            <textarea class="form-control" rows="4" placeholder="Comments..." name="comments" id="comments"></textarea>
             <input type="hidden" value="" name="status" id="status"/>
             <input type="hidden" value="test" name="pmio_instance_id" id="pmio_instance_id"/>
             <button type="submit" class="btn btn-primary"> Send</button>
@@ -233,6 +234,10 @@
     $("#status").val(status);
     $("#pmio_instance_id").val(pmio_instance_id);
     $("#form").attr("action", webhookUrl);
+    if (comments) {
+        $("#comments").val(comments);
+    }
+
 </script>
 
 </body>
