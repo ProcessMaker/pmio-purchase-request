@@ -38,7 +38,8 @@
         if (status === null) {
             alert("status GET parameter expected!");
         }
-        var comments = $.urlParam('comments');
+        var comments = JSON.parse($.urlParam('comments'));
+        console.log(comments)
 
 
     </script>
@@ -186,6 +187,10 @@
             box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
         }
 
+        #comments-block {
+            margin-top: 20px;
+        }
+
         @media only screen and (max-width: 767px) {
             h2 {
                 font-size: 18px;
@@ -218,6 +223,7 @@
             <textarea class="form-control" rows="4" placeholder="Comments..." name="new_comments"></textarea>
             <input type="hidden" value="" name="status" id="status"/>
             <input type="hidden" value="test" name="pmio_instance_id" id="pmio_instance_id"/>
+            <div id="comments-block"></div>
             <button type="submit" class="btn btn-primary"> Send</button>
             <br>
             <br>
@@ -236,11 +242,15 @@
     $("#pmio_instance_id").val(pmio_instance_id);
     $("#form").attr("action", webhookUrl);
     if (comments) {
-        $("#comments").val(comments);
+        $('#comments-block').append('<p class="help">Comments from previous Approvers:</p>');
+        Object.keys(comments).forEach(function (i) {
+            $('#comments-block').append($('<div class="well">Approver ' + i + ' <strong>' + comments[i].approver_email + ' (' + comments[i].status + ') :</strong> <br/>' + comments[i].comment.replace(/\n/g, '<br/>') + '</div>'));
+        })
     }
 
 </script>
 
 </body>
 </html>
+
 
