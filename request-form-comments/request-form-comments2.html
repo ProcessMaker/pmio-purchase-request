@@ -242,7 +242,7 @@
     $("#pmio_instance_id").val(pmio_instance_id);
     $("#form").attr("action", webhookUrl);
     if (comments) {
-        $('#comments-block').append('<p class="help">Comments from previous Approvers:</p>');
+        $('#comments-block').append('<p class="help">Approval History:</p>');
         Object.keys(comments).forEach(function (i) {
             $('#comments-block').append($('<div class="well">Approver ' + i + ' <strong>' + comments[i].approver_email + ' (' + comments[i].status + ') :</strong> <br/>' + comments[i].comment.replace(/\n/g, '<br/>') + '</div>'));
         })
