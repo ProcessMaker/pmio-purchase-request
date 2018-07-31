@@ -244,7 +244,7 @@
     if (comments) {
         $('#comments-block').append('<p class="help">Approval History:</p>');
         Object.keys(comments).forEach(function (i) {
-            $('#comments-block').append($('<div class="well">Approver ' + i + ' <strong>' + comments[i].approver_email + ' (' + comments[i].status + ') :</strong> ' + (typeof comments[i].time !== "undefined" ? comments[i].time : '') + '<br/>' + comments[i].comment.replace(/\n/g, '<br/>') + '</div>'));
+            $('#comments-block').append($('<div class="well">Approver ' + i + ' <strong>' + comments[i].approver_email + ' (' + comments[i].status + ') </strong> ' + (typeof comments[i].time !== "undefined" ? comments[i].time : '') + ': <br/>' + comments[i].comment.replace(/\n/g, '<br/>') + '</div>'));
         })
     }
 
