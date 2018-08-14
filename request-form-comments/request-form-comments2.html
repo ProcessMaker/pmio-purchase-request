@@ -207,7 +207,7 @@
             </div>
             <p id="comments"></p>
             <p class="help">Add additional comments to your response:</p>
-            <textarea class="form-control" rows="4" placeholder="Comments..." name="new_comments"></textarea>
+            <textarea class="form-control" rows="4" placeholder="Comments..." name="new_comments" id="new_comments"></textarea>
             <input type="hidden" value="" name="status" id="status"/>
             <input type="hidden" value="test" name="pmio_instance_id" id="pmio_instance_id"/>
 
@@ -225,6 +225,18 @@
 
 
 <script type='text/javascript'>
+    function escapeHtml(str) {
+        var div = document.createElement('div');
+        div.appendChild(document.createTextNode(str));
+        return div.innerHTML;
+    }
+
+    $('#form').submit(function() {
+        $('#new_comments').text(escapeHtml($('#new_comments').val()));
+        $('#reassign_email').val(escapeHtml($('#reassign_email').val()));
+        return true;
+    });
+
     $("#message").text(message);
     if (!details) {
         $("#details").parent().hide();
