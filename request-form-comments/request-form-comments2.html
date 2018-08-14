@@ -230,12 +230,6 @@
         div.appendChild(document.createTextNode(str));
         return div.innerHTML;
     }
-    function unescapeHtml(escapedStr) {
-        var div = document.createElement('div');
-        div.innerHTML = escapedStr;
-        var child = div.childNodes[0];
-        return child ? child.nodeValue : '';
-    }
 
     $('#form').submit(function() {
         var sanity = escapeHtml($('#new_comments').val());
@@ -274,7 +268,7 @@
             '<tbody></tbody>' +
             '</table>');
         Object.keys(comments).forEach(function (i) {
-            $('#comments-block tbody').append($('<tr><th> ' + i + '</th><td>' + comments[i].approver_email + '</td><td>' + comments[i].status + '</td><td>' + comments[i].reassign_email + '</td><td>' + unescapeHtml(comments[i].comment.replace(/\n/g, '<br/>')) + '</td><td>' + (typeof comments[i].time !== "undefined" ? comments[i].time : '') + '</td></tr>'));
+            $('#comments-block tbody').append($('<tr><th> ' + i + '</th><td>' + comments[i].approver_email + '</td><td>' + comments[i].status + '</td><td>' + comments[i].reassign_email + '</td><td>' + comments[i].comment.replace(/\n/g, '<br/>') + '</td><td>' + (typeof comments[i].time !== "undefined" ? comments[i].time : '') + '</td></tr>'));
         })
     }
 </script>
