@@ -15,7 +15,6 @@
                 return decodeURIComponent(results[1].replace(/\+/g, ' ')) || '';
             }
         }
-
         var webhookUrl = $.urlParam('webhookUrl');
         if (webhookUrl === null) {
             alert("webhookUrl GET parameter expected!");
@@ -24,24 +23,20 @@
         if (message === null) {
             alert("message GET parameter expected!");
         }
-
         var details = $.urlParam('details');
         if (details === null) {
             alert("details GET parameter expected!");
         }
-
         var pmio_instance_id = $.urlParam('pmio_instance_id');
         if (pmio_instance_id === null) {
             alert("pmio_instance_id GET parameter expected!");
         }
-
         var status = $.urlParam('status');
         if (status === null) {
             alert("status GET parameter expected!");
         }
         var comments = JSON.parse($.urlParam('comments'));
         var reassign_email = $.urlParam('reassign_email');
-
     </script>
 
     <title>ProcessMaker</title>
@@ -58,24 +53,19 @@
             padding: 0px 20px;
             margin: 0 auto;
         }
-
         .logo {
             text-align: center;
         }
-
         .logo img {
             margin: 40px auto;
             width: 200px;
         }
-
         .approved {
             margin-top: 40px;
         }
-
         .form-group {
             margin-bottom: 15px;
         }
-
         .form-control {
             display: block;
             width: 100%;
@@ -94,11 +84,9 @@
             transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
             box-sizing: border-box;
         }
-
         textarea.form-control {
             height: auto;
         }
-
         .btn {
             display: inline-block;
             padding: 6px 12px;
@@ -120,7 +108,6 @@
             border: 1px solid transparent;
             border-radius: 4px;
         }
-
         .btn-primary {
             color: #fff;
             background-color: #337ab7;
@@ -128,37 +115,30 @@
             margin-top: 20px;
             float: right;
         }
-
         h2 {
             font-size: 26px;
         }
-
         p {
             margin: 0 0 10px;
         }
-
         .alert {
             padding: 15px;
             margin-bottom: 20px;
             border: 1px solid transparent;
             border-radius: 4px;
         }
-
         .alert.alert-warning {
             color: #8a6d3b;
             background-color: #fcf8e3;
             border-color: #faebcc;
         }
-
         .alert > p, .alert > ul {
             margin-bottom: 0;
         }
-
         .help {
             font-family: 'Roboto', sans-serif;
             font-size: 16px;
         }
-
         .well {
             min-height: 20px;
             padding: 19px;
@@ -169,16 +149,13 @@
             -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
             box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
         }
-
         #comments-block {
             margin-top: 20px;
         }
-
         @media only screen and (max-width: 767px) {
             h2 {
                 font-size: 18px;
             }
-
             .logo img {
                 margin-top: 30px;
                 margin-bottom: 20px;
@@ -203,7 +180,7 @@
         <div class="form-group approved">
             <div id="reassign_block" style="display: none">
                 <p class="help">The request will be reassigned to the email mentioned below. You can change it now.</p>
-                <input type="text" value="" class="form-control" name="reassign_email" id="reassign_email"/>
+                <input type="email" value="" class="form-control" name="reassign_email" id="reassign_email" placeholder="approver2@domain.com" required/>
             </div>
             <p id="comments"></p>
             <p class="help">Add additional comments to your response:</p>
@@ -230,7 +207,6 @@
         div.appendChild(document.createTextNode(str));
         return div.innerHTML;
     }
-
     $('#form').submit(function() {
         var sanity = escapeHtml($('#new_comments').val());
         $('#new_comments').val(sanity);
@@ -238,7 +214,6 @@
         $('#reassign_email').val(sanity);
         return true;
     });
-
     $("#message").text(message);
     if (!details) {
         $("#details").parent().hide();
@@ -247,7 +222,6 @@
     }
     $("#status").val(status);
     if (reassign_email) {
-        $("#reassign_email").val(reassign_email);
         $("#reassign_block").show();
     }
     $("#pmio_instance_id").val(pmio_instance_id);
@@ -275,6 +249,3 @@
 
 </body>
 </html>
-
-
-
