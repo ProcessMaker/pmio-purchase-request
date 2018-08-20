@@ -180,7 +180,7 @@
         <div class="form-group approved">
             <div id="reassign_block" style="display: none">
                 <p class="help">The request will be reassigned to the email mentioned below. You can change it now.</p>
-                <input type="email" value="" class="form-control" name="reassign_email" id="reassign_email" placeholder="approver2@domain.com" required/>
+                <input type="email" value="" class="form-control" name="reassign_email" id="reassign_email" placeholder="approver2@domain.com"/>
             </div>
             <p id="comments"></p>
             <p class="help">Add additional comments to your response:</p>
@@ -223,6 +223,7 @@
     $("#status").val(status);
     if (reassign_email) {
         $("#reassign_block").show();
+        $("#reassign_email").prop('required',true);
     }
     $("#pmio_instance_id").val(pmio_instance_id);
     $("#form").attr("action", webhookUrl);
