@@ -267,8 +267,18 @@
             '</thead>' +
             '<tbody></tbody>' +
             '</table>');
+
         Object.keys(comments).forEach(function (i) {
-            $('#comments-block tbody').append($('<tr><th> ' + i + '</th><td>' + comments[i].approver_email + '</td><td>' + comments[i].status + '</td><td>' + comments[i].reassign_email + '</td><td>' + comments[i].comment.replace(/\n/g, '<br/>') + '</td><td>' + (typeof comments[i].time !== "undefined" ? comments[i].time : '') + '</td></tr>'));
+            $('#comments-block tbody').append($('<tr><th> ' + i + '</th><td>'
+                + (comments[i].approver_email !== undefined ? comments[i].approver_email : '')
+                + '</td><td>'
+                + comments[i].status + '</td><td>'
+                + (comments[i].reassign_email !== undefined ? comments[i].reassign_email : '')
+                + '</td><td>'
+                + (comments[i].comment !== undefined ? comments[i].comment.replace(/\n/g, '<br/>') : '')
+                + '</td><td>' + (typeof comments[i].time !== "undefined" ? comments[i].time : '')
+                + '</td></tr>')
+            );
         })
     }
 </script>
